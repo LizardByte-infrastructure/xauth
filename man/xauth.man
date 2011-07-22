@@ -94,6 +94,10 @@ bits.  For example, a 32 character hexkey would represent a 128-bit value.
 A protocol name consisting of just a
 single period is treated as an abbreviation for \fBMIT-MAGIC-COOKIE-1\fP.
 
+WARNING: This usage is considered insecure since the secret magic cookie
+will be displayed in command histories and for example the output of \fBps\fP.
+One should use the "merge" command (as described below) instead.
+Pay attention to its warning as well.
 .TP 8
 .B "generate \fIdisplayname protocolname\fP \fR[\fPtrusted|untrusted\fR]\fP"
 .B \fR[\fPtimeout \fIseconds\fP\fR]\fP  \fR[\fPgroup \fIgroup-id\fP\fR]\fP \fR[\fBdata \fIhexdata\fR]
@@ -159,6 +163,11 @@ the authorization database, superseding any matching existing entries. If
 the \fBnmerge\fP command is used, the numeric format given in the description
 of the \fBextract\fP command is used.  If a filename consists of just a single
 dash, the standard input will be read if it hasn't been read before.
+
+WARNING: Be careful with the single dash version as depending on the
+command chain (for example a combination using \fBsudo\fP),
+the secret key could be exposed to prying eyes in command histories
+and for example in the output of \fBps\fP.
 .TP 8
 .B "remove \fIdisplayname\fR..."
 Authorization entries matching the specified displays are removed from the
