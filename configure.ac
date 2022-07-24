@@ -20,19 +20,22 @@ dnl  PERFORMANCE OF THIS SOFTWARE.
 dnl
 dnl Process this file with autoconf to create configure.
 
+# Initialize Autoconf
 AC_PREREQ([2.60])
 AC_INIT([xauth],
 	[1.1.2],
 	[https://gitlab.freedesktop.org/xorg/app/xauth/issues],
 	[xauth])
-AM_INIT_AUTOMAKE([foreign dist-xz])
-
+AC_CONFIG_SRCDIR([xauth.c])
 AC_CONFIG_HEADERS([config.h])
 
 # Set common system defines for POSIX extensions, such as _GNU_SOURCE
 # Must be called before any macros that run the compiler (like
 # AC_PROG_LIBTOOL) to avoid autoconf errors.
 AC_USE_SYSTEM_EXTENSIONS
+
+# Initialize Automake
+AM_INIT_AUTOMAKE([foreign dist-xz])
 
 # Require X.Org macros 1.8 or later for MAN_SUBSTS set by XORG_MANPAGE_SECTIONS
 m4_ifndef([XORG_MACROS_VERSION],
