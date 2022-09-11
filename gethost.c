@@ -67,13 +67,6 @@ in this Software without prior written authorization from The Open Group.
 const char *
 get_hostname (Xauth *auth)
 {
-#ifdef TCPCONN
-    static struct hostent *hp;
-    int af;
-
-    hp = NULL;
-#endif
-
     if (auth->address_length == 0)
 	return "Illegal Address";
 #ifdef TCPCONN
@@ -83,6 +76,9 @@ get_hostname (Xauth *auth)
 #endif
 	)
     {
+	static struct hostent *hp = NULL;
+	int af;
+
 #if defined(IPv6) && defined(AF_INET6)
 	if (auth->family == FamilyInternet6)
 	    af = AF_INET6;
@@ -167,7 +163,6 @@ struct addrlist *get_address_info (
 #if defined(IPv6) && defined(AF_INET6)
     struct addrlist *lastrv = NULL;
     struct addrinfo *firstai = NULL;
-    struct addrinfo *ai = NULL;
     struct addrinfo hints;
 #else
     unsigned int hostinetaddr;
@@ -252,7 +247,7 @@ struct addrlist *get_address_info (
 	hints.ai_socktype = SOCK_STREAM; /* only interested in TCP */
 	hints.ai_protocol = 0;
         if (getaddrinfo(host,NULL,&hints,&firstai) !=0) return NULL;
-	for (ai = firstai; ai != NULL; ai = ai->ai_next) {
+	for (struct addrinfo *ai = firstai; ai != NULL; ai = ai->ai_next) {
 	    struct addrlist *duplicate;
 
             len = 0;
