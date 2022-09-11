@@ -656,7 +656,7 @@ static volatile Bool dying = False;
 
 /* poor man's puts(), for under signal handlers, 
    extended to ignore warn_unused_result */
-#define WRITES(fd, S) {if(write((fd), (S), strlen((S))));}
+#define WRITES(fd, S) {if(write((fd), (S), strlen((S)))){}}
 
 /* ARGSUSED */
 _X_NORETURN
