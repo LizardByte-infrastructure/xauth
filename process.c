@@ -413,7 +413,7 @@ read_numeric(FILE *fp)
 {
     Xauth *auth;
 
-    auth = (Xauth *) malloc (sizeof (Xauth));
+    auth = malloc (sizeof (Xauth));
     if (!auth) goto bad;
     auth->family = 0;
     auth->address = NULL;
@@ -469,7 +469,7 @@ read_auth_entries(FILE *fp, Bool numeric, AuthList **headp, AuthList **tailp)
     n = 0;
 					/* put all records into linked list */
     while ((auth = ((*readfunc) (fp))) != NULL) {
-	AuthList *l = (AuthList *) malloc (sizeof (AuthList));
+	AuthList *l = malloc (sizeof (AuthList));
 	if (!l) {
 	    fprintf (stderr,
 		     "%s:  unable to alloc entry reading auth file\n",
@@ -956,7 +956,7 @@ bintohex(unsigned int len, const char *bindata)
     char *hexdata, *starthex;
 
     /* two chars per byte, plus null termination */
-    starthex = hexdata = (char *)malloc(2*len + 1);
+    starthex = hexdata = malloc((2 * len) + 1);
     if (!hexdata)
 	return NULL;
 
@@ -1227,7 +1227,7 @@ copyAuth(Xauth *auth)
 {
     Xauth *a;
 
-    a = (Xauth *)malloc(sizeof(Xauth));
+    a = malloc(sizeof(Xauth));
     if (a == NULL) {
 	return NULL;
     }
