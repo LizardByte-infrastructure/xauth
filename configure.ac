@@ -43,8 +43,13 @@ m4_ifndef([XORG_MACROS_VERSION],
 XORG_MACROS_VERSION(1.8)
 XORG_DEFAULT_OPTIONS
 
+# Checks for header files.
 AC_CHECK_HEADERS([net/errno.h])
 
+# Checks for typedefs, structures, and compiler characteristics.
+AC_SYS_LARGEFILE
+
+# Checks for library functions.
 AC_CHECK_FUNCS([reallocarray strlcpy])
 
 # Checks for pkg-config packages
