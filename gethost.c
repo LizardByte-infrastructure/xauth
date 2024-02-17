@@ -42,11 +42,7 @@ in this Software without prior written authorization from The Open Group.
 #define __TYPES__
 #endif
 #ifndef WIN32
-#ifndef Lynx
 #include <sys/socket.h>
-#else
-#include <socket.h>
-#endif
 #include <netdb.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
