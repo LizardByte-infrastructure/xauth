@@ -1013,7 +1013,7 @@ dump_entry(const char *inputfilename, int lineno, Xauth *auth, char *data)
 	    fprintf (fp, "/unix");
 	    break;
 	  case FamilyInternet:
-#if defined(IPv6) && defined(AF_INET6)
+#ifdef IPv6
 	  case FamilyInternet6:
 #endif
 	  case FamilyDECnet:

@@ -60,6 +60,10 @@ in this Software without prior written authorization from The Open Group.
 #include <arpa/inet.h>
 #endif
 
+#if defined(IPv6) && !defined(AF_INET6)
+#error "Cannot build IPv6 support without AF_INET6"
+#endif
+
 const char *
 get_hostname (Xauth *auth)
 {
@@ -67,7 +71,7 @@ get_hostname (Xauth *auth)
 	return "Illegal Address";
 #ifdef TCPCONN
     if (auth->family == FamilyInternet
-#if defined(IPv6) && defined(AF_INET6)
+#ifdef IPv6
       || auth->family == FamilyInternet6
 #endif
 	)
@@ -75,7 +79,7 @@ get_hostname (Xauth *auth)
 	static struct hostent *hp = NULL;
 	int af;
 
-#if defined(IPv6) && defined(AF_INET6)
+#ifdef IPv6
 	if (auth->family == FamilyInternet6)
 	    af = AF_INET6;
 	else
@@ -86,7 +90,7 @@ get_hostname (Xauth *auth)
 	}
 	if (hp)
 	  return (hp->h_name);
-#if defined(IPv6) && defined(AF_INET6)
+#ifdef IPv6
 	else if (af == AF_INET6) {
 	  static char addr[INET6_ADDRSTRLEN+2];
 	  /* Add [] for clarity to distinguish between address & display,
@@ -109,7 +113,7 @@ get_hostname (Xauth *auth)
     return (NULL);
 }
 
-#if defined(TCPCONN) && (!defined(IPv6) || !defined(AF_INET6))
+#if defined(TCPCONN) && !defined(IPv6)
 /*
  * cribbed from lib/X/XConnDis.c
  */
@@ -156,7 +160,7 @@ struct addrlist *get_address_info (
     int len = 0;
     const void *src = NULL;
 #ifdef TCPCONN
-#if defined(IPv6) && defined(AF_INET6)
+#ifdef IPv6
     struct addrlist *lastrv = NULL;
     struct addrinfo *firstai = NULL;
     struct addrinfo hints;
@@ -236,7 +240,7 @@ struct addrlist *get_address_info (
 	break;
       case FamilyInternet:		/* host:0 */
 #ifdef TCPCONN
-#if defined(IPv6) && defined(AF_INET6)
+#ifdef IPv6
       case FamilyInternet6:
 	memset(&hints, 0, sizeof(hints));
 	hints.ai_family = PF_UNSPEC; /* IPv4 or IPv6 */
