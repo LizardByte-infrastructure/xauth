@@ -77,6 +77,11 @@ get_hostname (Xauth *auth)
 	)
     {
 	static struct hostent *hp = NULL;
+#ifdef IPv6
+	static char addr[INET6_ADDRSTRLEN+2];
+#elif defined(HAVE_INET_NTOP)
+	static char addr[INET_ADDRSTRLEN];
+#endif
 	int af;
 
 #ifdef IPv6
@@ -92,7 +97,6 @@ get_hostname (Xauth *auth)
 	  return (hp->h_name);
 #ifdef IPv6
 	else if (af == AF_INET6) {
-	  static char addr[INET6_ADDRSTRLEN+2];
 	  /* Add [] for clarity to distinguish between address & display,
 	     like RFC 2732 for URL's.  Not required, since X display syntax
 	     always ends in :<display>, but makes it easier for people to read
@@ -105,7 +109,11 @@ get_hostname (Xauth *auth)
 	}
 #endif
 	else {
+#ifdef HAVE_INET_NTOP
+	  return (inet_ntop(af, auth->address, addr, sizeof(addr)));
+#else
 	  return (inet_ntoa(*((struct in_addr *)(auth->address))));
+#endif
 	}
     }
 #endif

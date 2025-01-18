@@ -66,7 +66,7 @@ m4_pattern_forbid([^XTRANS_CONNECTION_FLAGS$])
 XTRANS_CONNECTION_FLAGS
 
 # Checks for library functions.
-AC_CHECK_FUNCS([getaddrinfo reallocarray strlcpy])
+AC_CHECK_FUNCS([getaddrinfo inet_ntop reallocarray strlcpy])
 
 XORG_WITH_LINT
 
