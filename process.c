@@ -839,7 +839,7 @@ write_auth_file(char *tmp_nam, size_t tmp_nam_size)
                 (ret < 0) ? "snprintf failed" : "buffer size is too small");
         return -1;
     }
-    (void) unlink (tmp_nam);
+    (void) remove (tmp_nam);
     /* CPhipps 2000/02/12 - fix file unlink/fopen race */
     fd = open(tmp_nam, O_WRONLY | O_CREAT | O_EXCL, 0600);
     if (fd != -1) fp = fdopen (fd, "wb");
@@ -923,7 +923,7 @@ auth_finalize(void)
 		    fprintf (stderr,
 		     "%s:  unable to rename authority file %s, use %s\n",
 			     ProgramName, xauth_filename, temp_name);
-                    unlink(temp_name);
+                    remove(temp_name);
 		}
 	    }
 	}
