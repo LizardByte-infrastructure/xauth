@@ -521,7 +521,7 @@ get_displayname_auth(const char *displayname, AuthList **authl)
 	unsigned short dpylen;
 
 	buf[0] = '\0';
-	sprintf (buf, "%d", dpynum);
+	snprintf (buf, sizeof(buf), "%d", dpynum);
 	dpylen = strlen (buf);
 	if (dpylen > 0) {
 	    for (addrlist_cur = addrlist_head; addrlist_cur != NULL;
