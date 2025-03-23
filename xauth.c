@@ -136,6 +136,8 @@ main(int argc, const char *argv[])
 		    puts(PACKAGE_VERSION);
 	   	    exit(0);
 		  default:
+		    fprintf(stderr, "%s: unrecognized option '-%s'\n",
+			    ProgramName, flag);
 		    usage ();
 	        }
 	    }
