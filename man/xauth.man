@@ -78,7 +78,7 @@ This option indicates that \fIxauth\fP should not attempt to resolve any
 hostnames, but should simply always print the host address as stored in
 the authority file.
 .TP 8
-.B \-V
+.BR \-V ", " \--version
 This option shows the version number of the xauth executable.
 .SH COMMANDS
 The following commands may be used to manipulate authority files:
